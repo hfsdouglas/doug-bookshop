@@ -1,7 +1,7 @@
 package Biblioteca;
 
 import Autor.Autor;
-import Empretimo.Emprestimo;
+import Emprestimo.Emprestimo;
 import Livro.Livro;
 
 import java.io.File;
