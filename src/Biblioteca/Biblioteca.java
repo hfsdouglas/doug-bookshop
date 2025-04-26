@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Biblioteca {
     private List<Livro> livros = new ArrayList<>();
@@ -73,16 +70,41 @@ public class Biblioteca {
 
     private void loadData(Path file) {
         try {
+            List<List<Map<String, String>>> data = new ArrayList<>();
             List<String> linhas = Files.readAllLines(file);
 
             for (int i = 0; i < linhas.toArray().length; i++) {
-                if (i == 0) {
-                    String[] cabeçalho = linhas[i].split(";");
+                String[] cabecalho = linhas.get(0).split(";");
+                String[] valores = {};
+
+                if (i > 0) {
+                    valores = linhas.get(i).split(";");
+                }
+
+                for (int j = 0; j < valores.length; j++) {
+                    Map<String, String> aux = new HashMap<>();
+
+                    aux.put(cabecalho[j], valores[j]);
+                    data.add([aux]);
                 }
             }
+
+            String filename = String.valueOf(file.getFileName());
+
+            switch (filename) {
+                case "autores.csv":
+                    System.out.println(data);
+                    break;
+                case "emprestimos.csv":
+                    System.out.println(data);
+                    break;
+                case "livros.csv":
+                    System.out.println(data);
+                    break;
+            }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
     }
 }
